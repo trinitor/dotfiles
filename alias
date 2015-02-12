@@ -1,0 +1,45 @@
+function up {
+  [ "${1/[^0-9]/}" == "$1" ] && {
+    local ups=""
+    for i in $(seq 1 $1)
+    do
+      ups=$ups"../"
+    done
+    cd $ups
+  } || echo "usage: up INTEGER"
+}
+
+function mkd() {
+  mkdir -p "$@" && cd "$@"
+}
+
+function cdl() {
+  cd "$@" && ls
+}
+
+# Detect which `ls` flavor is in use
+if ls --color > /dev/null 2>&1; then # GNU ls
+  colorflag="--color"
+else # OSX ls
+  colorflag="-G"
+fi
+
+alias c='clear'
+alias ls='ls -h ${colorflag}'
+alias la='ls -lah ${colorflag}'
+alias ll='ls -lh ${colorflag}'
+alias lsd="ls -lhF ${colorflag} | grep --color=never '^d'"
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+alias more='less'
+alias mkdir='mkdir -p'
+alias du='du -h'
+alias grep='grep --color=auto'
+alias path='echo -e ${PATH//:/\\n}'
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias psgrep="ps -ef | grep -i "
+

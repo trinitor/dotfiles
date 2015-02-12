@@ -1,0 +1,28 @@
+[user]
+   email = email@example.com
+   name = Username
+[alias]
+   st = status
+   l = log --pretty=format:'%C(green)%h%x09 %C(red)%an%x09 %C(green)%ad%x08%x08%x08%x08%x08%x08%x08%x08%x08%x09 %C(white)%s' --date=iso --graph
+   ll = log --pretty=format:'%C(green)%h%x09 %C(red)%an%x09 %C(green)%ad%x08%x08%x08%x08%x08%x08%x08%x08%x08%x09 %C(white)%s' --date=iso --graph --name-status
+   c = commit
+   p = pull --rebase
+   u = pull --rebase && commit && push
+   this = !git init && git add . && git commit -m \"initial commit\"
+   ignore=!([ ! -e .gitignore ] && touch .gitignore) | echo $1 >>.gitignore
+   unstage = reset HEAD --
+[core]
+   editor = vim
+   excludesfile = /home/username/.gitignore_global
+[merge]
+   tool = vimdiff
+[log]
+   date = iso
+[color]
+   ui = true
+[diff]
+   tool = vimdiff
+[difftool]
+   prompt = false
+[push]
+   default = matching

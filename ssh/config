@@ -1,0 +1,39 @@
+Host myserver myserver.example.com
+   HostName myserver.example.com
+   User myuser
+   LocalForward 3000 127.0.0.1:3000
+   DynamicForward localhost:8080
+
+Host companyname*
+   User root
+
+Host *.onion
+    ProxyCommand socat - SOCKS4A:localhost:%h:%p,socksport=9050
+
+Host *
+   Protocol 2
+   User root
+   ForwardX11 no
+   ForwardAgent no
+   ServerAliveInterval 60
+   Compression yes
+   CompressionLevel 4
+   GlobalKnownHostsFile ~/.ssh/verified_hosts
+   HashKnownHosts no
+
+   ## openssh6.6
+   ## https://stribika.github.io/2015/01/04/secure-secure-shell.html
+   #Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes128-ctr
+   #MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-512,hmac-sha2-256-etm@openssh.com,hmac-sha2-256,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,hmac-ripemd160
+   #KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
+   #HostKeyAlgorithms ssh-ed25519-cert-v01@openssh.com,ssh-rsa-cert-v01@openssh.com,ssh-rsa-cert-v00@openssh.com,ssh-ed25519,ssh-rsa
+   ## openssh6.0
+   ## https://bettercrypto.org/static/applied-crypto-hardening.pdf
+   #Ciphers aes256-ctr,aes128-ctr
+   #MACs hmac-sha2-512,hmac-sha2-256,hmac-ripemd160
+   #KexAlgorithms diffie-hellman-group-exchange-sha256,diffie-hellman-group14-sha1,diffie-hellman-group-exchange-sha1
+   ## compromise
+   Ciphers aes256-ctr,aes128-ctr
+   MACs hmac-sha2-512,hmac-sha2-256,hmac-ripemd160
+   KexAlgorithms diffie-hellman-group-exchange-sha256,diffie-hellman-group14-sha1
+

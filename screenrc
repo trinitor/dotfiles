@@ -1,0 +1,52 @@
+# in case you don't like Ctrl+a for the shortcuts you can change it
+#escape ``
+
+bufferfile  $HOME/.screen_buffer
+hardcopydir $HOME/.screen
+
+startup_message  off
+vbell            off
+defutf8          on
+defscrollback    10000
+msgwait          2
+term             screen-256color
+
+#enable scrolling mechanism
+termcapinfo xterm* ti@:te@
+
+#F1-F9= select window 1-9
+bindkey -k k1 select 1
+bindkey -k k2 select 2
+bindkey -k k3 select 3
+bindkey -k k4 select 4
+bindkey -k k5 select 5
+bindkey -k k6 select 6
+bindkey -k k7 select 7
+bindkey -k k8 select 8
+bindkey -k k9 select 9
+
+hardstatus on
+hardstatus alwayslastline
+hardstatus string '%{= K7} %{= K7}%-w%{= 70}%n %t%{= K7}%+w %-= | %{= K7}%Y-%m-%d %D %c'
+#http://michael-prokop.at/computer/config/.screenrc
+#  %{= K7}                 default color = bright blac[K] background; white foreground
+#  %{= K7}%-w              -w means before active window -> bright blac[K] background; white foreground
+#  %{= 70}%n %t            number and text of the windows will be displayed; backgroud color 7 is white, foreground color 0 means black
+#  %{= Kd}%+w              +w means after active window -> bright blac[K] background; white font
+#  %-=                     move the rest of the text to the right
+#  |                       print a | character
+#  %{= Kd}%Y-%m-%d %D %c   change the color again to bright blac[K] background; white foreground; display Year-Month-Day weekday time(24h format)
+
+#default window name
+shelltitle shell
+
+# start with window 1 instead of 0
+bind c screen 1
+bind ^c screen 1
+bind 0 select 10
+#create three windows by default and select the first one
+screen -t shell 1 
+screen -t shell 2 
+screen -t shell 3 
+select 1
+
